@@ -9,7 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "converterServlet", value = "/converter")
+@WebServlet(name = "converterServlet", urlPatterns = "/converter")
 public class ConverterServlet extends HttpServlet {
 
 
@@ -23,9 +23,15 @@ public class ConverterServlet extends HttpServlet {
         ExchangeRateFetcher calculate = new ExchangeRateFetcher(baseCurrency, targetCurrency, amount);
         String result = calculate.getResult();
 
-        request.setAttribute("result", result);
+        response.setContentType("text/plain");
 
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+        // Get PrintWriter to write response to output stream
+        PrintWriter out = response.getWriter();
+
+        // Write result to the response body
+//        request.setAttribute("result", result);
+        out.print(result);
+
 
 
     }

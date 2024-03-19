@@ -25,8 +25,7 @@ public class ExchangeRateFetcher {
         request.connect();
 
 // Convert to JSON
-        JsonParser jp = new JsonParser();
-        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+        JsonElement root = JsonParser.parseReader(new InputStreamReader((InputStream) request.getContent()));
         JsonObject jsonobj = root.getAsJsonObject();
 
 
@@ -40,17 +39,11 @@ public class ExchangeRateFetcher {
         return req_result;
     }
 
-    public void setReq_result(String req_result) {
-        this.req_result = req_result;
-    }
 
     public String getResult() {
         return result;
     }
 
-    public void setResult(String result) {
-        this.result = result;
-    }
 }
 
 
